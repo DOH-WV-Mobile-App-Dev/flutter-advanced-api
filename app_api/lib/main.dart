@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: <Widget>[
                     TextFormField(
                       decoration: new InputDecoration(
-                        hintText: 'User Email',
+                        hintText: null,
                         labelText: 'User Email',
                         hasFloatingPlaceholder: true,
                       ),
@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     TextFormField(
                       obscureText: true,
                       decoration: new InputDecoration(
-                        hintText: 'Password',
+                        hintText: null,
                         labelText: 'Password',
                         hasFloatingPlaceholder: true,
                       ),
@@ -82,10 +82,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         return null;
                       },
                     ),
-                    MaterialButton(
+                    Padding(
+                      padding: EdgeInsets.all(30),
+                      child: MaterialButton(
                       onPressed: () => print("Hello"),
                       color: Colors.lightGreen,
                       child: Text('Login'),
+                    ),
                     )
                   ],
                 ),
