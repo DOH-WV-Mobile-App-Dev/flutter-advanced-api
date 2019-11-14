@@ -50,39 +50,46 @@ class _MyHomePageState extends State<MyHomePage> {
             textScaleFactor: 2.0,
           ),
           new Form(
-            key: _formKey,
-            child: Padding(
-              padding: EdgeInsets.all(0.8),
-              child: Column(
-              children: <Widget>[
-                Text('User Email'),
-                TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
+              key: _formKey,
+              child: Padding(
+                padding: EdgeInsets.all(50),
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      decoration: new InputDecoration(
+                        hintText: 'User Email',
+                        labelText: 'User Email',
+                        hasFloatingPlaceholder: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      obscureText: true,
+                      decoration: new InputDecoration(
+                        hintText: 'Password',
+                        labelText: 'Password',
+                        hasFloatingPlaceholder: true,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                    MaterialButton(
+                      onPressed: () => print("Hello"),
+                      color: Colors.lightGreen,
+                      child: Text('Login'),
+                    )
+                  ],
                 ),
-                Text('Password'),
-                TextFormField(
-                  obscureText: true,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some text';
-                    }
-                    return null;
-                  },
-                ),
-                MaterialButton(
-                  onPressed: ()=>print("Hello"),
-                  color: Colors.lightGreen,
-                  child: Text('Login'),
-                )
-              ],
-            ),
-            )
-          )
+              ))
         ],
       )),
     );
