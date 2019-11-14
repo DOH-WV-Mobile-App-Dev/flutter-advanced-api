@@ -1,3 +1,4 @@
+import 'package:app_api/pages/home.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,12 +11,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+  
+  void loggedIn(context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => new HomePage()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text("Login"),
       ),
@@ -72,7 +80,19 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: EdgeInsets.all(30),
                       child: MaterialButton(
-                        onPressed: () => print("Hello"),
+                        onPressed: () {
+                          final snackBar = SnackBar(
+                            content: Text('Logged In'),
+                            action: SnackBarAction(
+                              label: 'OK',
+                              onPressed: ()=>loggedIn(context),
+                            ),
+                          );
+
+                          // Find the Scaffold in the widget tree and use
+                          // it to show a SnackBar.
+                          _scaffoldKey.currentState.showSnackBar(snackBar);
+                        },
                         color: Colors.lightGreen,
                         child: Text('Login'),
                       ),
