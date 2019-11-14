@@ -19,7 +19,7 @@ class _RootPageState extends State<RootPage> {
     super.initState();
   }
 
-  final bool auth = false;
+  final bool auth = true;
 
   Widget buildWaitingScreen() {
     return Scaffold(
