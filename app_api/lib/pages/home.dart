@@ -1,5 +1,10 @@
+import 'package:app_api/models/patients.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,13 +12,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State {
+
+  Future<Patients> patients;
+
+  Future<Patients> fetchPatients() async {
+  final response = await http.get('https://jsonplaceholder.typicode.com/posts/1');
+
+  if (response.statusCode == 200) {
+    // If server returns an OK response, parse the JSON.
+    return Patients.fromJson(json.decode(response.body));
+  } else {
+    // If that response was not OK, throw an error.
+    throw Exception('Failed to load data');
+  }
+}
+
+
+  @override
+  void initState() {
+    super.initState();
+    patients = fetchPatients();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("Home"),
         ),
-        body: DataTable(
+        body: Column(children: <Widget>[
+          DataTable(
           columns: [
             DataColumn(
               label: Text('id'),
@@ -56,6 +84,21 @@ class _HomePageState extends State {
               DataCell(IconButton(icon: Icon(Icons.delete), onPressed: ()=>null,)),
             ])
           ],
-        ));
+        ),
+        FutureBuilder<Patients>(
+          future: patients,
+          builder: (context, snapshot){
+             if (snapshot.hasData) {
+                return Text(snapshot.data.title);
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}");
+              }
+
+              // By default, show a loading spinner.
+              return CircularProgressIndicator();
+          },
+        )
+        ],)
+        );
   }
 }
