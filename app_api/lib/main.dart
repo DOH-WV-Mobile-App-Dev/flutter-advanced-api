@@ -45,6 +45,15 @@ class _MyHomePageState extends State<MyHomePage> {
           child: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          new Hero(
+              tag: 'hero',
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(0.0, 40.0, 0.0, 30),
+                child: CircleAvatar(
+                  radius: 50.0,
+                  child: Image.asset('lib/assets/logo.png'),
+                ),
+              )),
           new Text(
             "DOH Connect!",
             textScaleFactor: 2.0,
@@ -52,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
           new Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.all(50),
+                padding: EdgeInsets.all(30),
                 child: Column(
                   children: <Widget>[
                     TextFormField(
@@ -85,10 +94,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     Padding(
                       padding: EdgeInsets.all(30),
                       child: MaterialButton(
-                      onPressed: () => print("Hello"),
-                      color: Colors.lightGreen,
-                      child: Text('Login'),
-                    ),
+                        onPressed: () => print("Hello"),
+                        color: Colors.lightGreen,
+                        child: Text('Login'),
+                      ),
                     )
                   ],
                 ),
