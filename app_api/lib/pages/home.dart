@@ -51,7 +51,8 @@ class _HomePageState extends State {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    if(_patientsList.length > 0){
+return Scaffold(
         appBar: AppBar(
           title: Text("Home"),
         ),
@@ -97,5 +98,9 @@ class _HomePageState extends State {
                 ],
               ),
             )));
+    }else{
+      return Scaffold(body: CircularProgressIndicator());
+    }
+    
   }
 }

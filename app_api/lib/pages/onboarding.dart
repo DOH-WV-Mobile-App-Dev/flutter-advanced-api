@@ -17,6 +17,18 @@ class OnBoardingPage extends StatelessWidget {
     return new IntroductionScreen(
         pages: [
           PageViewModel(
+            title: "Welcome to Flutter",
+            body:
+                "Bacon ipsum dolor amet brisket leberkas tail fatback chuck sausage buffalo spare ribs landjaeger.",
+            image: Padding(padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+            child: Center(
+                child: FlutterLogo(size: 300.0)),
+            ),
+            decoration: const PageDecoration(
+              pageColor: Colors.white,
+            ),
+          ),
+          PageViewModel(
             title: "Easily Manage Your Patient's Data",
             body:
                 "Bacon ipsum dolor amet brisket leberkas tail fatback chuck sausage buffalo spare ribs landjaeger.",
