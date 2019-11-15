@@ -24,6 +24,7 @@ dependencies:
   introduction_screen: ^1.0.7
   flare_flutter: ^1.7.1
   flare_splash_screen: ^3.0.0
+  vibration: ^1.2.2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -46,6 +47,11 @@ flutter:
   uses-material-design: true
   assets:
     - lib/assets/logo.png
+    - lib/assets/undraw_fitting_piece_iilo.png
+    - lib/assets/undraw_modern_art_x3qc.png
+    - lib/assets/undraw_progressive_app_m9ms.png
+    - lib/assets/undraw_quiz_nlyh.png
+    - lib/assets/undraw_winter_road_mcqj.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

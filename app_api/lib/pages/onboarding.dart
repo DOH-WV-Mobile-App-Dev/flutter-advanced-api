@@ -17,11 +17,23 @@ class OnBoardingPage extends StatelessWidget {
     return new IntroductionScreen(
         pages: [
           PageViewModel(
-            title: "Title here",
+            title: "Easily Manage Your Patient's Data",
             body:
-                "Description here",
+                "Bacon ipsum dolor amet brisket leberkas tail fatback chuck sausage buffalo spare ribs landjaeger.",
+            image: Padding(padding: EdgeInsets.fromLTRB(0, 100, 0, 0),
+            child: Center(
+                child: Image.asset("lib/assets/undraw_fitting_piece_iilo.png", height: 300.0)),
+            ),
+            decoration: const PageDecoration(
+              pageColor: Colors.white,
+            ),
+          ),
+          PageViewModel(
+            title: "Keme keme",
+            body:
+                "Lorem ipsum keme keme keme 48 years fayatollah kumenis bella pinkalou na ang conalei jowabella ",
             image: Center(
-                child: Image.asset("lib/assets/logo.png", height: 175.0)),
+                child: Image.asset("lib/assets/undraw_modern_art_x3qc.png", height: 200.0)),
             decoration: const PageDecoration(
               pageColor: Colors.white,
             ),
@@ -31,7 +43,7 @@ class OnBoardingPage extends StatelessWidget {
             body:
                 "Description here",
             image: Center(
-                child: Image.asset("lib/assets/logo.png", height: 175.0)),
+                child: Image.asset("lib/assets/undraw_progressive_app_m9ms.png", height: 175.0)),
             decoration: const PageDecoration(
               pageColor: Colors.white,
             ),
@@ -39,9 +51,19 @@ class OnBoardingPage extends StatelessWidget {
           PageViewModel(
             title: "Title here",
             body:
-                "Description here",
+                "Lorem ipsum keme keme keme 48 years fayatollah kumenis bella pinkalou na ang conalei jowabella",
             image: Center(
-                child: Image.asset("lib/assets/logo.png", height: 175.0)),
+                child: Image.asset("lib/assets/undraw_quiz_nlyh.png", height: 175.0)),
+            decoration: const PageDecoration(
+              pageColor: Colors.white,
+            ),
+          ),
+          PageViewModel(
+            title: "Title here",
+            body:
+                "orem ipsum keme keme keme 48 years fayatollah kumenis bella pinkalou na ang conalei jowabella",
+            image: Center(
+                child: Image.asset("lib/assets/undraw_winter_road_mcqj.png", height: 175.0)),
             decoration: const PageDecoration(
               pageColor: Colors.white,
             ),

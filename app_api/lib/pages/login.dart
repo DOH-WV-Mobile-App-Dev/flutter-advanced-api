@@ -1,6 +1,7 @@
 import 'package:app_api/pages/home.dart';
 import 'package:app_api/pages/onboarding.dart';
 import 'package:flutter/material.dart';
+import 'package:vibration/vibration.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -16,6 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   
   void loggedIn(context) {
+    Vibration.vibrate(duration: 5000);
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => new OnBoardingPage()),
     );
