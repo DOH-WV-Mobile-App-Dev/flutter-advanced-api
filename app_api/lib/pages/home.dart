@@ -51,7 +51,7 @@ class _HomePageState extends State {
 
   @override
   Widget build(BuildContext context) {
-    if(_patientsList.length > 0){
+    if(_patientsList != null){
 return Scaffold(
         appBar: AppBar(
           title: Text("Home"),

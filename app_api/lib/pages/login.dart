@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:app_api/models/auth.dart';
 import 'package:app_api/pages/home.dart';
 import 'package:app_api/pages/onboarding.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:vibration/vibration.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,7 +19,33 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-  
+  Future<Auth> auth;
+  bool _userIsAuth = false;
+  String _userEmail;
+  String _userPassword;
+
+  Future<Auth> getAuth(String email, String pass) async {
+    String url = 'http://172.16.3.189:5000/auth?email=$email&pass=$pass';
+    print(url);
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      Auth auth = Auth(validation: data["validation"]);
+      if (auth.validation) {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => new OnBoardingPage()),
+        );
+      }else{
+        print("Validation error");
+      }
+      print(auth.validation);
+      setState(() {
+        _userIsAuth = auth as bool;
+      });
+    }
+  }
+
   void loggedIn(context) {
     Vibration.vibrate(duration: 5000);
     Navigator.of(context).push(
@@ -65,6 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                         }
                         return null;
                       },
+                      onSaved: (value) => _userEmail = value.trim(),
                     ),
                     TextFormField(
                       obscureText: true,
@@ -79,22 +110,27 @@ class _LoginPageState extends State<LoginPage> {
                         }
                         return null;
                       },
+                      onSaved: (value) => _userPassword = value.trim(),
                     ),
                     Padding(
                       padding: EdgeInsets.all(30),
                       child: MaterialButton(
                         onPressed: () {
-                          final snackBar = SnackBar(
-                            content: Text('Logged In'),
-                            action: SnackBarAction(
-                              label: 'OK',
-                              onPressed: ()=>loggedIn(context),
-                            ),
-                          );
+                          final form = _formKey.currentState;
+                          form.save();
+                          getAuth(Uri.encodeComponent(_userEmail),
+                              _userPassword);
+                          // final snackBar = SnackBar(
+                          //   content: Text('Logged In'),
+                          //   action: SnackBarAction(
+                          //     label: 'OK',
+                          //     onPressed: () => loggedIn(context),
+                          //   ),
+                          // );
 
                           // Find the Scaffold in the widget tree and use
                           // it to show a SnackBar.
-                          _scaffoldKey.currentState.showSnackBar(snackBar);
+                          // _scaffoldKey.currentState.showSnackBar(snackBar);
                         },
                         color: Colors.lightGreen,
                         child: Text('Login'),
