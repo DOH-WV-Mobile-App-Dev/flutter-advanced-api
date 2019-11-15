@@ -98,10 +98,17 @@ class _HomePageState extends State {
                 }
 
                 // By default, show a loading spinner.
-                return Column(children: <Widget>[
-                  Text("Loading data..."),
-                  CircularProgressIndicator(),
-                ],);
+                return Center(
+                    child: Padding(
+                  padding: EdgeInsets.all(100),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Loading data..."),
+                        CircularProgressIndicator(),
+                      ]),
+                ));
               },
             )
           ],
