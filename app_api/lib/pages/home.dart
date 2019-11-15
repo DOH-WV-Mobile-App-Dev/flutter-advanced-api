@@ -17,12 +17,26 @@ class _HomePageState extends State {
 
   Future<Patients> fetchPatients() async {
     final response =
-        await http.get('https://jsonplaceholder.typicode.com/posts/1');
+        await http.get('http://172.16.3.189:5000/patients?limit=30');
     // List<Patients> patientList = [];
 
     if (response.statusCode == 200) {
       // If server returns an OK response, parse the JSON.
-      return Patients.fromJson(json.decode(response.body));
+      var data = json.decode(response.body);
+      List<Patients> patientsList = [];
+      for (var p in data) {
+        Patients patient = Patients(
+            id: p["id"],
+            address: p["address"],
+            email: p["email"],
+            name: p["name"],
+            password: p["password"]);
+        patientsList.add(patient);
+      }
+
+      this.setState(() {
+        _patientsList = patientsList;
+      });
     } else {
       // If that response was not OK, throw an error.
       throw Exception('Failed to load data');
@@ -41,77 +55,47 @@ class _HomePageState extends State {
         appBar: AppBar(
           title: Text("Home"),
         ),
-        body: Column(
-          children: <Widget>[
-            FutureBuilder<Patients>(
-              future: patients,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return DataTable(
+        body: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Column(
+                children: <Widget>[
+                  DataTable(
                     columns: [
                       DataColumn(
                         label: Text('id'),
                       ),
                       DataColumn(
-                        label: Text('Name'),
+                        label: Text('Email'),
                       ),
                       DataColumn(
                         label: Text('Address'),
+                      ),
+                      DataColumn(
+                        label: Text('Password'),
                       ),
                       // Lets add one more column to show a delete button
                       DataColumn(
                         label: Text('Actions'),
                       )
                     ],
-                    rows: [
-                      DataRow(cells: [
-                        DataCell(Text('id')),
-                        DataCell(Text('name')),
-                        DataCell(Text('address')),
-                        DataCell(IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () => null,
-                        )),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('id')),
-                        DataCell(Text('name')),
-                        DataCell(Text('address')),
-                        DataCell(IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () => null,
-                        )),
-                      ]),
-                      DataRow(cells: [
-                        DataCell(Text('id')),
-                        DataCell(Text('name')),
-                        DataCell(Text('address')),
-                        DataCell(IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () => null,
-                        )),
-                      ])
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
-                }
-
-                // By default, show a loading spinner.
-                return Center(
-                    child: Padding(
-                  padding: EdgeInsets.all(100),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text("Loading data..."),
-                        CircularProgressIndicator(),
-                      ]),
-                ));
-              },
-            )
-          ],
-        ));
+                    rows: _patientsList
+                        .map(((e) => DataRow(cells: <DataCell>[
+                              DataCell(Text(e.id.toString())),
+                              DataCell(Text(e.email.toString())),
+                              DataCell(Text(e.address.toString())),
+                              DataCell(Text(e.password.toString())),
+                              DataCell(IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () => null,
+                              )),
+                            ])))
+                        .toList(),
+                    sortAscending: true,
+                  )
+                ],
+              ),
+            )));
   }
 }
