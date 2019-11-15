@@ -1,4 +1,5 @@
 import 'package:app_api/pages/home.dart';
+import 'package:app_api/pages/onboarding.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   
   void loggedIn(context) {
     Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => new HomePage()),
+      MaterialPageRoute(builder: (_) => new OnBoardingPage()),
     );
   }
 
